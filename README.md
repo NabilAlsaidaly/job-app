@@ -1,61 +1,166 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+📱 Job Application Platform – job-app
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+job-app is the user-facing application of the Job Platform ecosystem.
+It allows job seekers to browse vacancies, apply for jobs, upload resumes, manage their profile, and track application status.
 
-## About Laravel
+This project works together with:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+job-backoffice – Admin & Company Dashboard
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+job-shared – Shared Eloquent Models Package
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+🚀 Features
+👤 User Account Management
 
-## Learning Laravel
+Register / Login / Logout
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Email verification
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Update profile information
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Change password
 
-## Laravel Sponsors
+Upload resume (PDF)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+🔍 Job Browsing
 
-### Premium Partners
+View all job vacancies
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Search by keyword
 
-## Contributing
+Filter by category, job type, and location
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+View detailed job information
 
-## Code of Conduct
+📝 Job Applications
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Apply to any job vacancy
 
-## Security Vulnerabilities
+Attach a resume for each application
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Track application status (pending, reviewing, accepted, rejected)
 
-## License
+🤖 AI-Powered Resume Analysis
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Integrated resume analysis using:
+
+OpenAI API
+
+Spatie PDF-to-Text
+
+Custom ResumeAnalysisService
+
+🗂 Shared Models Integration
+
+All Eloquent models (JobVacancy, JobApplication, Company, User, Resume…) come from the shared package:
+
+job-shared
+
+Ensuring consistent data structures across the entire platform.
+
+📦 Tech Stack
+
+Laravel 12
+
+Blade / TailwindCSS
+
+Laravel Breeze
+
+Vite
+
+OpenAI API
+
+AWS S3 (optional)
+
+Spatie PDF-to-Text
+
+job-shared – shared models package
+
+📁 Project Structure Overview
+app/
+├── Http/
+│ ├── Controllers/
+│ ├── Middleware/
+│ └── Requests/
+├── Services/
+│ └── ResumeAnalysisService.php
+resources/
+├── views/
+│ ├── job-vacancies/
+│ ├── job-applications/
+│ ├── profile/
+│ └── layouts/
+routes/
+├── web.php
+└── auth.php
+
+🔗 Using the Shared Package (job-shared)
+
+Configured in composer.json:
+
+"repositories": [
+{
+"type": "vcs",
+"url": "https://github.com/NabilAlsaidaly/job-shared.git"
+}
+]
+
+Install:
+
+composer require job/shared:@dev
+
+Use models directly:
+
+use App\Models\JobVacancy;
+
+$jobs = JobVacancy::with('company')->latest()->paginate(10);
+
+⚙️ Installation Guide
+
+1. Clone the repository
+   git clone https://github.com/NabilAlsaidaly/job-app.git
+   cd job-app
+
+2. Install dependencies
+   composer install
+   npm install
+
+3. Environment setup
+   cp .env.example .env
+   php artisan key:generate
+
+Configure your database.
+
+4. Migrate the database
+   php artisan migrate --seed
+
+5. Start the development servers
+   php artisan serve
+   npm run dev
+
+🧪 Testing
+php artisan test
+
+🎯 Purpose of This Application
+
+Provide a clean, intuitive job search experience
+
+Enable seamless application submission
+
+Offer AI-powered resume insights
+
+Integrate tightly with company owner dashboards
+
+Maintain shared core data through job-shared
+
+📄 License
+
+MIT License.
+
+✔ Notes
+
+Fully compatible with job-backoffice and job-shared.
+
+Resume analysis requires valid OpenAI credentials.
+
+All models are shared across the entire ecosystem for maximum consistency.
